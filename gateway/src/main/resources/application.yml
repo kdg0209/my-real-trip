@@ -7,13 +7,15 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: auth               #?? ???? ?? ???
-          uri: lb://AUTHSERVICE  #?? ???? ??
-          predicates:            #???? ?? ?? /auth/**? ???? ?? ?? ???? ?? ??
+        - id: auth
+          uri: http://auth:8001
+          predicates:
             Path=/auth/**
 eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://host.docker.internal:8761/eureka
+    instance:
+      instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}}
