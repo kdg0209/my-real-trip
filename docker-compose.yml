@@ -1,0 +1,38 @@
+version: "3.0"
+
+services:
+  eureka:
+    build: ./eureka
+    ports:
+      - "8761:8761"
+    restart: on-failure
+    networks:
+      - trip_net
+
+  api-gateway:
+    build: ./gateway
+    ports:
+        - "8000:8000"
+    depends_on:
+      - eureka
+    restart: on-failure
+    networks:
+      - trip_net
+    environment:
+      - eureka.client.service-url.defaultZone=http://eureka:8761/eureka
+
+  auth:
+    build: ./auth-service
+    ports:
+      - "8001:8001"
+    depends_on:
+      - eureka
+    restart: on-failure
+    networks:
+      - trip_net
+    environment:
+      - eureka.client.service-url.defaultZone=http://eureka:8761/eureka
+
+networks:
+  trip_net:
+    driver: bridge
