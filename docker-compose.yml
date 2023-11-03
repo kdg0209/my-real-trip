@@ -8,6 +8,8 @@ services:
     restart: on-failure
     networks:
       - trip_net
+    environment:
+      - eureka.client.service-url.defaultZone=http://host.docker.internal:8762/eureka
 
   replication-eureka:
     build: ./replication-eureka
@@ -16,6 +18,8 @@ services:
     restart: on-failure
     networks:
       - trip_net
+    environment:
+      - eureka.client.service-url.defaultZone=http://host.docker.internal:8761/eureka
 
   api-gateway:
     build: ./gateway
@@ -23,23 +27,26 @@ services:
         - "8000:8000"
     depends_on:
       - eureka
+      - replication-eureka
     restart: on-failure
     networks:
       - trip_net
     environment:
-      - eureka.client.service-url.defaultZone=http://eureka:8761/eureka, http://eureka:8762/eureka
+      - spring.cloud.gateway.routes.uri=http://auth-service:8001
+      - eureka.client.service-url.defaultZone=http://host.docker.internal:8761/eureka, http://host.docker.internal:8762/eureka,
 
-  auth:
+  auth-service:
     build: ./auth-service
     ports:
       - "8001:8001"
     depends_on:
       - eureka
+      - replication-eureka
     restart: on-failure
     networks:
       - trip_net
     environment:
-      - eureka.client.service-url.defaultZone=http://eureka:8761/eureka, http://eureka:8762/eureka
+      - eureka.client.service-url.defaultZone=http://host.docker.internal:8761/eureka, http://host.docker.internal:8762/eureka,
 
 networks:
   trip_net:
