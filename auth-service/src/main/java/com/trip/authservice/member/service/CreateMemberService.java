@@ -11,8 +11,10 @@ import com.trip.authservice.member.dto.response.MemberCreateResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CreateMemberService implements CreateMemberUsecase {
 
@@ -28,7 +30,7 @@ public class CreateMemberService implements CreateMemberUsecase {
         var memberEmail = new MemberEmail(request.email());
         var memberPassword = new MemberPassword(request.password(), encoder);
         var member = Member.create(request.id(), memberPassword, request.name(), request.nickName(), memberEmail);
-        Member entity = createMemberPort.createMember(member);
+        var entity = createMemberPort.createMember(member);
 
         return new MemberCreateResponse(entity.getPk());
     }

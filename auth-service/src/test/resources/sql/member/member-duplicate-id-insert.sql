@@ -1,0 +1,2 @@
+INSERT INTO member (pk, id, password, name, nick_name, email, create_datetime)
+VALUES(508890352794225389, 'test', '$2a$10$BITwHr9GbyYlLRt4WGfv2OHbmUbd6jSqNkohabIkFyQMndcwFQLB.', '홍길동', 'KDG', 'test123@naver.com', '2023-11-05T15:28:32');
