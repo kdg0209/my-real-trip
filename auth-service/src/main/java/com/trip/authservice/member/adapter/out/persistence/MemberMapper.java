@@ -2,7 +2,6 @@ package com.trip.authservice.member.adapter.out.persistence;
 
 import com.trip.authservice.member.domain.Member;
 import com.trip.authservice.member.domain.MemberEmail;
-import com.trip.authservice.member.domain.MemberPassword;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -16,7 +15,7 @@ public class MemberMapper {
     public Member toDomain(MemberEntity entity) {
         return Member.domain(entity.getPk(),
                 entity.getId(),
-                new MemberPassword(entity.getPassword(), encoder),
+                entity.getPassword(),
                 entity.getName(),
                 entity.getNickName(),
                 new MemberEmail(entity.getEmail()),
@@ -27,11 +26,15 @@ public class MemberMapper {
     public MemberEntity toEntity(Member member) {
         return MemberEntity.builder()
                 .id(member.getId())
-                .password(member.getPassword())
+                .password(passwordEncoding(member.getPassword()))
                 .name(member.getName())
                 .nickName(member.getNickName())
                 .email(member.getEmail())
                 .createDatetime(member.getCreateDatetime())
                 .build();
+    }
+
+    private String passwordEncoding(String password) {
+        return encoder.encode(password);
     }
 }

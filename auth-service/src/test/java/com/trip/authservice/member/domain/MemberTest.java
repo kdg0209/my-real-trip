@@ -1,7 +1,6 @@
 package com.trip.authservice.member.domain;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -12,7 +11,7 @@ class MemberTest {
 
         // given
         String id = "TEST";
-        MemberPassword password = new MemberPassword("123456", new BCryptPasswordEncoder());
+        String password = "123456";
         String name = "홍길동";
         String nickName = "KDG";
         MemberEmail email = new MemberEmail("test@naver.com");

@@ -10,14 +10,14 @@ public class Member {
 
     private Long pk;
     private String id;
-    private MemberPassword password;
+    private String password;
     private String name;
     private String nickName;
     private MemberEmail email;
     private LocalDateTime createDatetime;
 
     @Builder
-    private Member(Long pk, String id, MemberPassword password, String name, String nickName, MemberEmail email, LocalDateTime createDatetime) {
+    private Member(Long pk, String id, String password, String name, String nickName, MemberEmail email, LocalDateTime createDatetime) {
         this.pk = pk;
         this.id = id;
         this.password = password;
@@ -27,7 +27,7 @@ public class Member {
         this.createDatetime = createDatetime;
     }
 
-    public static Member domain(Long pk, String id, MemberPassword password, String name, String nickName, MemberEmail email, LocalDateTime createDatetime) {
+    public static Member domain(Long pk, String id, String password, String name, String nickName, MemberEmail email, LocalDateTime createDatetime) {
         return Member.builder()
                 .pk(pk)
                 .id(id)
@@ -39,7 +39,7 @@ public class Member {
                 .build();
     }
 
-    public static Member create(String id, MemberPassword password, String name, String nickName, MemberEmail email) {
+    public static Member create(String id, String password, String name, String nickName, MemberEmail email) {
         return Member.builder()
                 .id(id)
                 .password(password)
@@ -52,10 +52,6 @@ public class Member {
 
     public String getPk() {
         return String.valueOf(pk);
-    }
-
-    public String getPassword() {
-        return this.password.toString();
     }
 
     public String getEmail() {

@@ -5,11 +5,9 @@ import com.trip.authservice.member.application.port.out.CreateMemberPort;
 import com.trip.authservice.member.application.port.out.ValidationMemberPort;
 import com.trip.authservice.member.domain.Member;
 import com.trip.authservice.member.domain.MemberEmail;
-import com.trip.authservice.member.domain.MemberPassword;
 import com.trip.authservice.member.dto.request.MemberCreateRequest;
 import com.trip.authservice.member.dto.response.MemberCreateResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class CreateMemberService implements CreateMemberUsecase {
 
-    private final PasswordEncoder encoder;
     private final CreateMemberPort createMemberPort;
     private final ValidationMemberPort validationPort;
 
@@ -28,8 +25,7 @@ public class CreateMemberService implements CreateMemberUsecase {
         validationPort.validateMemberEmail(request.email());
 
         var memberEmail = new MemberEmail(request.email());
-        var memberPassword = new MemberPassword(request.password(), encoder);
-        var member = Member.create(request.id(), memberPassword, request.name(), request.nickName(), memberEmail);
+        var member = Member.create(request.id(), request.password(), request.name(), request.nickName(), memberEmail);
         var entity = createMemberPort.createMember(member);
 
         return new MemberCreateResponse(entity.getPk());
