@@ -11,7 +11,7 @@ import org.springframework.test.context.jdbc.Sql;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class CreateMemberServiceTest extends IntegrationTest {
+public class CreateMemberServiceTest2 extends IntegrationTest {
 
     @Autowired
     private CreateMemberUsecase createMemberUsecase;

@@ -11,8 +11,7 @@ import org.springframework.test.context.jdbc.Sql;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class CreateMemberServiceTest extends IntegrationTest {
-
+public class CreateMemberServiceTest3 extends IntegrationTest {
     @Autowired
     private CreateMemberUsecase createMemberUsecase;
 
@@ -57,4 +56,5 @@ class CreateMemberServiceTest extends IntegrationTest {
                 .isInstanceOf(IllegalArgumentException.class);
 
     }
+
 }
