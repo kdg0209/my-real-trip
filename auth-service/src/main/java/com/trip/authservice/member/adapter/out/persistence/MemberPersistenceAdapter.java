@@ -3,6 +3,8 @@ package com.trip.authservice.member.adapter.out.persistence;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.trip.authservice.member.application.port.out.CreateMemberPort;
+import com.trip.authservice.member.application.port.out.FindMemberPort;
+import com.trip.authservice.member.application.port.out.UpdatePasswordMemberPort;
 import com.trip.authservice.member.application.port.out.ValidationMemberPort;
 import com.trip.authservice.member.domain.Member;
 import com.trip.authservice.member.repository.MemberRepository;
@@ -14,11 +16,23 @@ import static com.trip.authservice.member.adapter.out.persistence.QMemberEntity.
 
 @Component
 @RequiredArgsConstructor
-public class MemberPersistenceAdapter implements CreateMemberPort, ValidationMemberPort {
+public class MemberPersistenceAdapter implements FindMemberPort, CreateMemberPort, ValidationMemberPort, UpdatePasswordMemberPort {
 
     private final JPAQueryFactory queryFactory;
     private final MemberMapper memberMapper;
     private final MemberRepository memberRepository;
+
+    @Override
+    public Member findById(String id) {
+        var entity = queryFactory
+                .selectFrom(memberEntity)
+                .where(
+                        eqId(id)
+                )
+                .fetchFirst();
+
+        return this.memberMapper.toDomain(entity);
+    }
 
     @Override
     public Member createMember(Member member) {
@@ -26,6 +40,12 @@ public class MemberPersistenceAdapter implements CreateMemberPort, ValidationMem
         var entity = memberRepository.save(memberEntity);
 
         return memberMapper.toDomain(entity);
+    }
+
+    @Override
+    public void updatePassword(Member member) {
+        var entity = memberMapper.toEntity(member);
+        entity.updatePassword(member.getPassword());
     }
 
     @Override
