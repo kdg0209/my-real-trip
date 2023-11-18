@@ -5,21 +5,15 @@ import com.trip.authservice.member.application.port.in.CreateMemberUsecase;
 import com.trip.authservice.member.dto.request.MemberCreateRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@Transactional
 class CreateMemberServiceTest extends IntegrationTest {
 
     @Autowired
     private CreateMemberUsecase createMemberUsecase;
-
-    @Autowired
-    private PasswordEncoder encoder;
 
     @Test
     void 정상적인_값을_사용하여_멤버를_생성할_수_있다() {
