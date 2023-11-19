@@ -2,6 +2,7 @@ package com.trip.authservice.member.domain;
 
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 
@@ -20,11 +21,11 @@ public class Member {
     private Member(Long pk, String id, String password, String name, String nickName, MemberEmail email, LocalDateTime createDatetime) {
         this.pk = pk;
         this.id = id;
-        this.password = password;
         this.name = name;
         this.nickName = nickName;
         this.email = email;
         this.createDatetime = createDatetime;
+        setPassword(password);
     }
 
     public static Member domain(Long pk, String id, String password, String name, String nickName, MemberEmail email, LocalDateTime createDatetime) {
@@ -50,11 +51,22 @@ public class Member {
                 .build();
     }
 
-    public String getPk() {
-        return String.valueOf(pk);
+    public String converterPKToString() {
+        return String.valueOf(this.pk);
     }
 
     public String getEmail() {
         return this.email.toString();
+    }
+
+    public void updatePassword(String password) {
+        setPassword(password);
+    }
+
+    private void setPassword(String password) {
+        if (!StringUtils.hasText(password)) {
+            throw new IllegalArgumentException("잘못된 입력값입니다.");
+        }
+        this.password = password;
     }
 }
