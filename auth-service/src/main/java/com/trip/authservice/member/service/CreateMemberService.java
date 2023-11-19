@@ -28,6 +28,6 @@ public class CreateMemberService implements CreateMemberUsecase {
         var member = Member.create(request.id(), request.password(), request.name(), request.nickName(), memberEmail);
         var entity = createMemberPort.createMember(member);
 
-        return new MemberCreateResponse(entity.getPk());
+        return new MemberCreateResponse(entity.converterPKToString());
     }
 }

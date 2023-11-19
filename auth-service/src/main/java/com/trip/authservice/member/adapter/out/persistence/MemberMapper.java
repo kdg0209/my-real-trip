@@ -25,6 +25,7 @@ public class MemberMapper {
 
     public MemberEntity toEntity(Member member) {
         return MemberEntity.builder()
+                .pk(member.getPk())
                 .id(member.getId())
                 .password(passwordEncoding(member.getPassword()))
                 .name(member.getName())

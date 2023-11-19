@@ -51,8 +51,8 @@ public class Member {
                 .build();
     }
 
-    public String getPk() {
-        return String.valueOf(pk);
+    public String converterPKToString() {
+        return String.valueOf(this.pk);
     }
 
     public String getEmail() {

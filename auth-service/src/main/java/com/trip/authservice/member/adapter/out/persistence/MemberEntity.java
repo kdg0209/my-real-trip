@@ -45,16 +45,13 @@ public class MemberEntity {
     private LocalDateTime createDatetime;
 
     @Builder
-    public MemberEntity(String id, String password, String name, String nickName, String email, LocalDateTime createDatetime) {
+    public MemberEntity(Long pk, String id, String password, String name, String nickName, String email, LocalDateTime createDatetime) {
+        this.pk = pk;
         this.id = id;
         this.password = password;
         this.name = name;
         this.nickName = nickName;
         this.email = email;
         this.createDatetime = createDatetime;
-    }
-
-    public void updatePassword(String password) {
-        this.password = password;
     }
 }

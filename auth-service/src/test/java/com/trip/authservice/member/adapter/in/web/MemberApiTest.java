@@ -3,8 +3,11 @@ package com.trip.authservice.member.adapter.in.web;
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trip.authservice.member.application.port.in.CreateMemberUsecase;
+import com.trip.authservice.member.application.port.in.MemberUpdatePasswordUsecase;
 import com.trip.authservice.member.dto.request.MemberCreateRequest;
+import com.trip.authservice.member.dto.request.MemberUpdatePasswordRequest;
 import com.trip.authservice.member.dto.response.MemberCreateResponse;
+import com.trip.authservice.member.dto.response.MemberUpdatePasswordResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
@@ -19,6 +22,7 @@ import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -37,6 +41,9 @@ class MemberApiTest {
 
     @MockBean
     private CreateMemberUsecase createMemberUsecase;
+
+    @MockBean
+    private MemberUpdatePasswordUsecase memberUpdatePasswordUsecase;
     
     @Test
     void create() throws Exception {
@@ -72,5 +79,38 @@ class MemberApiTest {
                         )
                         .build()
                 )));
+    }
+
+    @Test
+    void updatePassword() throws Exception {
+
+        MemberUpdatePasswordRequest request = new MemberUpdatePasswordRequest("test", "123456");
+        MemberUpdatePasswordResponse response = new MemberUpdatePasswordResponse("test");
+
+        when(memberUpdatePasswordUsecase.updatePassword(request)).thenReturn(response);
+
+        ResultActions actions = mockMvc.perform(put("/members/password")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(request))
+                .with(csrf())
+        );
+
+        actions
+                .andExpect(status().isOk())
+                .andDo(document("member/updatePassword",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        resource(ResourceSnippetParameters.builder()
+                                .tag("Members API")
+                                .summary("회원 비밀번호 변경 API")
+                                .requestFields(
+                                        fieldWithPath("id").description("아이디"),
+                                        fieldWithPath("password").description("비밀번호")
+                                )
+                                .responseFields(
+                                        fieldWithPath("id").description("아이디")
+                                )
+                                .build()
+                        )));
     }
 }
