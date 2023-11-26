@@ -1,10 +1,13 @@
 package com.trip.authservice.member.domain;
 
+import com.trip.authservice.global.exception.types.InValidException;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
+
+import static com.trip.authservice.global.exception.ErrorCode.ERR_NOT_A_VALID_PASSWORD_FORMAT;
 
 @Getter
 public class Member {
@@ -65,7 +68,7 @@ public class Member {
 
     private void setPassword(String password) {
         if (!StringUtils.hasText(password)) {
-            throw new IllegalArgumentException("잘못된 입력값입니다.");
+            throw new InValidException(ERR_NOT_A_VALID_PASSWORD_FORMAT);
         }
         this.password = password;
     }

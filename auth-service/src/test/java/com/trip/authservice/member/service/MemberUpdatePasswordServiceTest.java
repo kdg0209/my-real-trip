@@ -1,6 +1,7 @@
 package com.trip.authservice.member.service;
 
 import com.trip.authservice.config.IntegrationTest;
+import com.trip.authservice.global.exception.types.InValidException;
 import com.trip.authservice.member.application.port.in.MemberUpdatePasswordUsecase;
 import com.trip.authservice.member.dto.request.MemberUpdatePasswordRequest;
 import org.junit.jupiter.api.Test;
@@ -47,6 +48,6 @@ class MemberUpdatePasswordServiceTest extends IntegrationTest {
 
         // when && then
         assertThatThrownBy(() -> memberUpdatePasswordUsecase.updatePassword(request))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(InValidException.class);
     }
 }

@@ -1,5 +1,6 @@
 package com.trip.authservice.member.domain;
 
+import com.trip.authservice.global.exception.types.InValidException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -28,6 +29,6 @@ class MemberEmailTest {
 
         // when && then
         assertThatThrownBy(() -> new MemberEmail(email))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(InValidException.class);
     }
 }

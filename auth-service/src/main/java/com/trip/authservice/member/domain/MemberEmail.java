@@ -1,7 +1,11 @@
 package com.trip.authservice.member.domain;
 
+import com.trip.authservice.global.exception.types.InValidException;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.trip.authservice.global.exception.ErrorCode.ERR_NOT_A_VALID_EMAIL_FORMAT;
 
 public class MemberEmail {
 
@@ -22,7 +26,7 @@ public class MemberEmail {
         Matcher result = PATTERN.matcher(email);
 
         if (!result.matches()) {
-            throw new IllegalArgumentException("잘못된 이메일 형식입니다.");
+            throw new InValidException(ERR_NOT_A_VALID_EMAIL_FORMAT);
         }
         this.email = email;
     }
