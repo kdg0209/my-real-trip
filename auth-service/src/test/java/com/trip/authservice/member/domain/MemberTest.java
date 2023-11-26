@@ -1,5 +1,6 @@
 package com.trip.authservice.member.domain;
 
+import com.trip.authservice.global.exception.types.InValidException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullSource;
@@ -47,7 +48,7 @@ class MemberTest {
     void 잘못된_값을_사용하여_비밀번호를_변경하는_경우_예외가_발생한다(String password) {
         var member = findMember();
         assertThatThrownBy(() -> member.updatePassword(password))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(InValidException.class);
     }
 
     private static Member findMember() {

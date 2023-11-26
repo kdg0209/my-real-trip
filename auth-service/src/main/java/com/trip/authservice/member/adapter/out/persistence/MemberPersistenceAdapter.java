@@ -1,5 +1,7 @@
 package com.trip.authservice.member.adapter.out.persistence;
 
+import com.trip.authservice.global.exception.types.BusinessException;
+import com.trip.authservice.global.exception.types.EntityNotFoundException;
 import com.trip.authservice.member.application.port.out.CreateMemberPort;
 import com.trip.authservice.member.application.port.out.FindMemberPort;
 import com.trip.authservice.member.application.port.out.UpdatePasswordMemberPort;
@@ -7,6 +9,8 @@ import com.trip.authservice.member.application.port.out.ValidationMemberPort;
 import com.trip.authservice.member.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import static com.trip.authservice.global.exception.ErrorCode.*;
 
 @Component
 @RequiredArgsConstructor
@@ -18,7 +22,7 @@ public class MemberPersistenceAdapter implements FindMemberPort, CreateMemberPor
     @Override
     public Member findById(String id) {
         var entity = memberPersistenceDao.findById(id)
-                .orElseThrow(() -> new IllegalStateException("엔티티가 존재하지 않습니다."));
+                .orElseThrow(() -> new EntityNotFoundException(ERR_MEMBER_NOT_FOUND));
 
         return this.memberMapper.toDomain(entity);
     }
@@ -42,7 +46,7 @@ public class MemberPersistenceAdapter implements FindMemberPort, CreateMemberPor
         var optional = memberPersistenceDao.findById(id);
 
         optional.ifPresent(entity -> {
-            throw new IllegalArgumentException("이미 존재하는 아이디입니다.");
+            throw new BusinessException(ERR_MEMBER_ID_ALREADY_EXISTS);
         });
     }
 
@@ -51,7 +55,7 @@ public class MemberPersistenceAdapter implements FindMemberPort, CreateMemberPor
         var optional = memberPersistenceDao.findByEmail(email);
 
         optional.ifPresent(entity -> {
-            throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
+            throw new BusinessException(ERR_MEMBER_EMAIL_ALREADY_EXISTS);
         });
     }
 }

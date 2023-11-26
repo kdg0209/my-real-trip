@@ -1,6 +1,7 @@
 package com.trip.authservice.member.service;
 
 import com.trip.authservice.config.IntegrationTest;
+import com.trip.authservice.global.exception.types.BusinessException;
 import com.trip.authservice.member.application.port.in.CreateMemberUsecase;
 import com.trip.authservice.member.dto.request.MemberCreateRequest;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ class CreateMemberServiceTest extends IntegrationTest {
 
         // when && then
         assertThatThrownBy(() -> createMemberUsecase.create(request))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(BusinessException.class);
 
     }
 
@@ -50,7 +51,7 @@ class CreateMemberServiceTest extends IntegrationTest {
 
         // when && then
         assertThatThrownBy(() -> createMemberUsecase.create(request))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(BusinessException.class);
 
     }
 }
