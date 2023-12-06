@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/coupon-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/coupon-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/trip.iml" filepath="$PROJECT_DIR$/.idea/trip.iml" />
     </modules>
   </component>
