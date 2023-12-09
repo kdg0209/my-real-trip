@@ -8,7 +8,7 @@ public class MemberOutBoxMapper {
 
     public MemberOutBoxEntity toEntity(MemberOutBox memberOutBox) {
         return MemberOutBoxEntity.builder()
-                .pk(memberOutBox.getPk())
+                .id(memberOutBox.getId())
                 .memberId(memberOutBox.getMemberId())
                 .payload(memberOutBox.getPayload())
                 .createDatetime(memberOutBox.getCreateDatetime())
