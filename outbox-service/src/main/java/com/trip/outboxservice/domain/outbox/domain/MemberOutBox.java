@@ -1,4 +1,4 @@
-package com.trip.authservice.outbox.adapter.out.persistence;
+package com.trip.outboxservice.domain.outbox.domain;
 
 import io.hypersistence.utils.hibernate.id.Tsid;
 import jakarta.persistence.Column;
@@ -6,7 +6,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
@@ -17,7 +16,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "member_outbox")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MemberOutBoxEntity {
+public class MemberOutBox {
 
     @Id
     @Tsid
@@ -34,12 +33,4 @@ public class MemberOutBoxEntity {
     @Comment(value = "생성일자")
     @Column(name = "create_datetime")
     private LocalDateTime createDatetime;
-
-    @Builder
-    public MemberOutBoxEntity(Long id, String memberId, String payload, LocalDateTime createDatetime) {
-        this.id = id;
-        this.memberId = memberId;
-        this.payload = payload;
-        this.createDatetime = createDatetime;
-    }
 }

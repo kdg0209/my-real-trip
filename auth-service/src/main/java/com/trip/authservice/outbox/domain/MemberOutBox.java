@@ -8,14 +8,14 @@ import java.time.LocalDateTime;
 @Getter
 public class MemberOutBox {
 
-    private Long pk;
+    private Long id;
     private String memberId;
     private String payload;
     private LocalDateTime createDatetime;
 
     @Builder
-    private MemberOutBox(Long pk, String memberId, String payload, LocalDateTime createDatetime) {
-        this.pk = pk;
+    private MemberOutBox(Long id, String memberId, String payload, LocalDateTime createDatetime) {
+        this.id = id;
         this.memberId = memberId;
         this.payload = payload;
         this.createDatetime = createDatetime;
