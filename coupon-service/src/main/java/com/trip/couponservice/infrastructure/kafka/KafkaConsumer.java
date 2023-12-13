@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class KafkaConsumer {
 
-    @KafkaListener(topics = "outbox", containerFactory = "kafkaListenerContainerFactory")
-    public void consume(String message) {
+    @KafkaListener(topics = "outbox")
+    public void consume(MemberOutboxResponse message) {
         System.out.println("Consumer message : " + message);
     }
 }

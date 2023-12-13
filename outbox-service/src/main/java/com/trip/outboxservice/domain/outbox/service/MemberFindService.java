@@ -1,6 +1,6 @@
 package com.trip.outboxservice.domain.outbox.service;
 
-import com.trip.outboxservice.domain.outbox.dto.MemberListResponse;
+import com.trip.outboxservice.domain.outbox.dto.MemberOutboxResponse;
 import com.trip.outboxservice.domain.outbox.repository.MemberOutBoxRepository;
 import com.trip.outboxservice.domain.outbox.service.port.MemberFindPort;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +18,9 @@ public class MemberFindService implements MemberFindPort {
     private final MemberOutBoxRepository repository;
 
     @Override
-    public List<MemberListResponse> findAll() {
+    public List<MemberOutboxResponse> findAll() {
         return repository.findAll().stream()
-                .map(outBox -> new MemberListResponse(outBox.getId(), outBox.getMemberId(), outBox.getPayload()))
+                .map(outBox -> new MemberOutboxResponse(outBox.getId(), outBox.getMemberId(), outBox.getPayload()))
                 .collect(Collectors.toList());
     }
 }
