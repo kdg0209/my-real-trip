@@ -1,6 +1,5 @@
 package com.trip.outboxservice.infrastructure.scheduler;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trip.outboxservice.domain.outbox.service.port.MemberFindPort;
 import com.trip.outboxservice.infrastructure.kafka.KafkaProducer;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +13,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class OutBoxScheduler {
 
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-
     private final MemberFindPort findPort;
     private final KafkaProducer kafkaProducer;
 
@@ -23,6 +20,5 @@ public class OutBoxScheduler {
     public void scheduler() {
         findPort.findAll()
                 .forEach(kafkaProducer::sendMessage);
-
     }
 }

@@ -2,7 +2,7 @@ package com.trip.authservice.member.adapter.in.web;
 
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.trip.authservice.member.application.port.in.CreateMemberUsecase;
+import com.trip.authservice.member.application.port.in.MemberCreateUsecase;
 import com.trip.authservice.member.application.port.in.MemberUpdatePasswordUsecase;
 import com.trip.authservice.member.dto.request.MemberCreateRequest;
 import com.trip.authservice.member.dto.request.MemberUpdatePasswordRequest;
@@ -40,7 +40,7 @@ class MemberApiTest {
     private ObjectMapper objectMapper;
 
     @MockBean
-    private CreateMemberUsecase createMemberUsecase;
+    private MemberCreateUsecase memberCreateUsecase;
 
     @MockBean
     private MemberUpdatePasswordUsecase memberUpdatePasswordUsecase;
@@ -51,7 +51,7 @@ class MemberApiTest {
         MemberCreateRequest request = new MemberCreateRequest("test", "123456", "홍길동", "KDG", "test@naver.com");
         MemberCreateResponse response = new MemberCreateResponse("123");
 
-        when(createMemberUsecase.create(request)).thenReturn(response);
+        when(memberCreateUsecase.create(request)).thenReturn(response);
 
         ResultActions actions = mockMvc.perform(post("/members")
                 .contentType(MediaType.APPLICATION_JSON)

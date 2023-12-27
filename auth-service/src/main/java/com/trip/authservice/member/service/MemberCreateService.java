@@ -1,6 +1,6 @@
 package com.trip.authservice.member.service;
 
-import com.trip.authservice.member.application.port.in.CreateMemberUsecase;
+import com.trip.authservice.member.application.port.in.MemberCreateUsecase;
 import com.trip.authservice.member.application.port.out.CreateMemberPort;
 import com.trip.authservice.member.application.port.out.ValidationMemberPort;
 import com.trip.authservice.member.domain.Member;
@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class CreateMemberService implements CreateMemberUsecase {
+public class MemberCreateService implements MemberCreateUsecase {
 
     private final CreateMemberPort createMemberPort;
     private final ValidationMemberPort validationPort;
