@@ -1,10 +1,7 @@
 package com.trip.authservice.outbox.adapter.out.persistence;
 
 import io.hypersistence.utils.hibernate.id.Tsid;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,6 +24,10 @@ public class MemberOutBoxEntity {
     @Column(name = "member_id", length = 50, unique = true, updatable = false)
     private String memberId;
 
+    @Comment(value = "아웃박스 상태")
+    @Column(name = "status", length = 50, nullable = false)
+    private String status;
+
     @Comment(value = "payload")
     @Column(name = "payload", columnDefinition = "TEXT", unique = true, updatable = false)
     private String payload;
@@ -36,9 +37,10 @@ public class MemberOutBoxEntity {
     private LocalDateTime createDatetime;
 
     @Builder
-    public MemberOutBoxEntity(Long id, String memberId, String payload, LocalDateTime createDatetime) {
+    public MemberOutBoxEntity(Long id, String memberId, String status, String payload, LocalDateTime createDatetime) {
         this.id = id;
         this.memberId = memberId;
+        this.status = status;
         this.payload = payload;
         this.createDatetime = createDatetime;
     }

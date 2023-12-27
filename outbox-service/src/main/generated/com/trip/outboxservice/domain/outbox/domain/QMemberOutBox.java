@@ -21,11 +21,13 @@ public class QMemberOutBox extends EntityPathBase<MemberOutBox> {
 
     public final DateTimePath<java.time.LocalDateTime> createDatetime = createDateTime("createDatetime", java.time.LocalDateTime.class);
 
+    public final NumberPath<Long> id = createNumber("id", Long.class);
+
     public final StringPath memberId = createString("memberId");
 
     public final StringPath payload = createString("payload");
 
-    public final NumberPath<Long> pk = createNumber("pk", Long.class);
+    public final EnumPath<OutBoxStatus> status = createEnum("status", OutBoxStatus.class);
 
     public QMemberOutBox(String variable) {
         super(MemberOutBox.class, forVariable(variable));
