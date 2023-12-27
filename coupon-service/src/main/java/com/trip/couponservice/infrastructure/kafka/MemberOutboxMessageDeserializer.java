@@ -5,7 +5,7 @@ import org.apache.kafka.common.serialization.Deserializer;
 
 import java.util.Map;
 
-public class MemberOutboxResponseDeserializer implements Deserializer<MemberOutboxResponse> {
+public class MemberOutboxMessageDeserializer implements Deserializer<MemberOutboxMessage> {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -15,10 +15,10 @@ public class MemberOutboxResponseDeserializer implements Deserializer<MemberOutb
     }
 
     @Override
-    public MemberOutboxResponse deserialize(String topic, byte[] data) {
+    public MemberOutboxMessage deserialize(String topic, byte[] data) {
         try {
             // Convert the byte array to a String representation of JSON and then parse it into GiftRequest object
-            return objectMapper.reader().readValue(data, MemberOutboxResponse.class);
+            return objectMapper.reader().readValue(data, MemberOutboxMessage.class);
         } catch (Exception e) {
             // Handle any deserialization errors here
             e.printStackTrace();

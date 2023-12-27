@@ -2,7 +2,7 @@ package com.trip.authservice.member.service;
 
 import com.trip.authservice.config.IntegrationTest;
 import com.trip.authservice.global.exception.types.BusinessException;
-import com.trip.authservice.member.application.port.in.CreateMemberUsecase;
+import com.trip.authservice.member.application.port.in.MemberCreateUsecase;
 import com.trip.authservice.member.dto.request.MemberCreateRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +11,10 @@ import org.springframework.test.context.jdbc.Sql;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class CreateMemberServiceTest extends IntegrationTest {
+class MemberCreateServiceTest extends IntegrationTest {
 
     @Autowired
-    private CreateMemberUsecase createMemberUsecase;
+    private MemberCreateUsecase memberCreateUsecase;
 
     @Test
     void 정상적인_값을_사용하여_멤버를_생성할_수_있다() {
@@ -23,7 +23,7 @@ class CreateMemberServiceTest extends IntegrationTest {
         var request = new MemberCreateRequest("test", "123456", "홍길동", "KDG", "test@naver.com");
 
         // when
-        var result = createMemberUsecase.create(request);
+        var result = memberCreateUsecase.create(request);
 
         // then
         assertThat(result).isNotNull();
@@ -37,7 +37,7 @@ class CreateMemberServiceTest extends IntegrationTest {
         var request = new MemberCreateRequest("test", "123456", "홍길동", "KDG", "test@naver.com");
 
         // when && then
-        assertThatThrownBy(() -> createMemberUsecase.create(request))
+        assertThatThrownBy(() -> memberCreateUsecase.create(request))
                 .isInstanceOf(BusinessException.class);
 
     }
@@ -50,7 +50,7 @@ class CreateMemberServiceTest extends IntegrationTest {
         var request = new MemberCreateRequest("test 1234", "123456", "홍길동", "KDG", "test@naver.com");
 
         // when && then
-        assertThatThrownBy(() -> createMemberUsecase.create(request))
+        assertThatThrownBy(() -> memberCreateUsecase.create(request))
                 .isInstanceOf(BusinessException.class);
 
     }

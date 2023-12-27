@@ -19,20 +19,20 @@ public class KafkaConsumerConfig {
     private static final String BOOTSTRAP_SERVERS_CONFIG = "localhost:9092";
 
     @Bean
-    public ConsumerFactory<String, MemberOutboxResponse> consumerFactory() {
+    public ConsumerFactory<String, MemberOutboxMessage> consumerFactory() {
         Map<String, Object> config = new HashMap<>();
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS_CONFIG);
         config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_1");
         config.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, MemberOutboxResponseDeserializer.class);
+        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, MemberOutboxMessageDeserializer.class);
 
         return new DefaultKafkaConsumerFactory<>(config);
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, MemberOutboxResponse> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, MemberOutboxResponse> factory = new ConcurrentKafkaListenerContainerFactory<>();
+    public ConcurrentKafkaListenerContainerFactory<String, MemberOutboxMessage> kafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, MemberOutboxMessage> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
 
         return factory;
