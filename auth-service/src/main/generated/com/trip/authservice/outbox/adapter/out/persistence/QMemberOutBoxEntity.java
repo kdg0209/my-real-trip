@@ -27,6 +27,8 @@ public class QMemberOutBoxEntity extends EntityPathBase<MemberOutBoxEntity> {
 
     public final StringPath payload = createString("payload");
 
+    public final StringPath status = createString("status");
+
     public QMemberOutBoxEntity(String variable) {
         super(MemberOutBoxEntity.class, forVariable(variable));
     }
