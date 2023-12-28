@@ -1,6 +1,6 @@
 package com.trip.outboxservice.infrastructure.kafka;
 
-import com.trip.outboxservice.domain.outbox.dto.MemberOutboxResponse;
+import com.trip.outboxservice.domain.outbox.dto.OutboxMessage;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;
@@ -27,17 +27,17 @@ public class KafkaProducerConfig {
 //    }
 
     @Bean
-    public ProducerFactory<String, MemberOutboxResponse> producerFactory() {
+    public ProducerFactory<String, OutboxMessage> producerFactory() {
         Map<String, Object> config = new HashMap<>();
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS_CONFIG);
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, MemberOutboxResponseSerializer.class);
+        config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, OutboxMessageSerializer.class);
 
         return new DefaultKafkaProducerFactory<>(config);
     }
 
     @Bean
-    public KafkaTemplate<String, MemberOutboxResponse> kafkaTemplate() {
+    public KafkaTemplate<String, OutboxMessage> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 }
