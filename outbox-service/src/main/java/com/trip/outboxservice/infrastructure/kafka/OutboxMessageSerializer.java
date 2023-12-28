@@ -1,12 +1,12 @@
 package com.trip.outboxservice.infrastructure.kafka;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.trip.outboxservice.domain.outbox.dto.MemberOutboxResponse;
+import com.trip.outboxservice.domain.outbox.dto.OutboxMessage;
 import org.apache.kafka.common.serialization.Serializer;
 
 import java.util.Map;
 
-public class MemberOutboxResponseSerializer implements Serializer<MemberOutboxResponse> {
+public class OutboxMessageSerializer implements Serializer<OutboxMessage> {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -16,7 +16,7 @@ public class MemberOutboxResponseSerializer implements Serializer<MemberOutboxRe
     }
 
     @Override
-    public byte[] serialize(String topic, MemberOutboxResponse data) {
+    public byte[] serialize(String topic, OutboxMessage data) {
         try {
             return objectMapper.writeValueAsBytes(data);
         } catch (Exception e) {

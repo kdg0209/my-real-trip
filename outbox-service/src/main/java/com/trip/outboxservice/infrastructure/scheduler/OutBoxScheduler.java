@@ -1,6 +1,6 @@
 package com.trip.outboxservice.infrastructure.scheduler;
 
-import com.trip.outboxservice.domain.outbox.service.port.MemberFindPort;
+import com.trip.outboxservice.domain.outbox.service.port.OutboxFindPort;
 import com.trip.outboxservice.infrastructure.kafka.KafkaProducer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class OutBoxScheduler {
 
-    private final MemberFindPort findPort;
+    private final OutboxFindPort findPort;
     private final KafkaProducer kafkaProducer;
 
     @Scheduled(cron = "0/10 * * * * *")
